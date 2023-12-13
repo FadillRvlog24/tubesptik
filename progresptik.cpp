@@ -159,3 +159,23 @@ bool DatabaseDosen::isDosenExist(const std::string& namaDosen) const {
     }
     return false; // Nama dosen tidak ditemukan
 }
+
+// Fungsi utama program
+int main() {
+    std::cout << "=====================================\n";
+    std::cout << "   Pengembangan Aplikasi CRUD Dosen  \n";
+    std::cout << "=====================================\n";
+
+    // Membuat objek database untuk menyimpan data dosen
+    DatabaseDosen database;
+    
+    char pilihan;
+    do {
+        std::cout << "\nMenu:\n";
+        std::cout << "1. Tambah Data Dosen\n";
+        std::cout << "2. Lihat Data Dosen\n";
+        std::cout << "3. Update Data Dosen\n";
+        std::cout << "4. Hapus Data Dosen\n";
+        std::cout << "5. Keluar\n";
+        std::cout << "Masukkan Pilihan : ";
+        std::cin >> pilihan;
