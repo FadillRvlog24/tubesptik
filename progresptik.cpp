@@ -72,4 +72,13 @@ void DatabaseDosen::lihatDataDosen() const {
         std::cout << "Alamat: " << dataDosen[i].alamat << "\n";
         std::cout << "Email: " << dataDosen[i].email << "\n";
         std::cout << "Nomor Telepon: " << dataDosen[i].nomorTelepon << "\n";
-        std::cout << "Mata Kuliah: " << dataDosen[i].mataKuliah << "\n"; 
+        std::cout << "Mata Kuliah: " << dataDosen[i].mataKuliah << "\n";
+		 std::cout << "Hari Mengajar: " << dataDosen[i].hariMengajar << "\n";
+        std::cout << "Umur: " << dataDosen[i].umur << " tahun\n\n";
+       
+        
+    }
+}	else {
+		std::cout<<"Belum ada data dosen. \";
+		}	std::cout<<"----------------------------------------------\n";
+}        
