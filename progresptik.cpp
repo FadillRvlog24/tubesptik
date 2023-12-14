@@ -298,3 +298,83 @@ int main() {
                 // Menampilkan semua data dosen
                 database.lihatDataDosen();
                 break;
+                
+            case '3': {
+                // Mengupdate data dosen
+                std::string namaDosen;
+                std::cin.ignore();
+                std::cout << "Masukkan Nama Dosen yang akan diupdate: ";
+                std::getline(std::cin, namaDosen);
+
+                if (database.isDosenExist(namaDosen)) {
+                    Dosen newData;
+                    //Validasi Nama baru dosen
+                    do {
+    					std::cout << "Masukkan Nama Baru Dosen: ";
+   						std::getline(std::cin, newData.nama);
+    					if (newData.nama.empty() || !database.isAlpha(newData.nama)) {
+        					std::cout << "Error: Nama dosen baru tidak valid. Harus berupa huruf.\n";
+    					}
+					} while (newData.nama.empty() || !database.isAlpha(newData.nama));
+					//Validasi NIP  baru Dosen
+                    do {
+    					std::cout << "Masukkan NIP Baru Dosen: ";
+    					std::getline(std::cin, newData.nip);
+    					if (newData.nip.empty() || !database.isNumeric(newData.nip)) {
+        					std::cout << "Error: NIP dosen baru tidak valid. Harus berupa angka.\n";
+    					}
+					} while (newData.nip.empty() || !database.isNumeric(newData.nip));
+
+                    
+                    //Validasi Alamat Baru
+                    	std::cout << "Masukkan Alamat Baru Dosen: ";
+                    	std::getline(std::cin, newData.alamat);
+                    	
+                    //Validasi Email Baru
+                    	std::cout << "Masukkan Email Baru Dosen: ";
+                    	std::getline(std::cin, newData.email);
+
+                    //Validasi Nomor Telepon Baru Dosen
+                    do {
+    					std::cout << "Masukkan Nomor Telepon Baru Dosen: ";
+    					std::getline(std::cin, newData.nomorTelepon);
+    					if (newData.nomorTelepon.empty() || !database.isNumeric(newData.nomorTelepon) || newData.nomorTelepon.length() > 13) {
+        					std::cout << "Error: Nomor Telepon dosen baru tidak valid. Harus berupa angka dan tidak lebih dari 13 digit.\n";
+    					}
+					} while (newData.nomorTelepon.empty() || !database.isNumeric(newData.nomorTelepon) || newData.nomorTelepon.length() > 13);
+
+					//Validasi Mata kuliah Baru
+                    do {
+    					std::cout << "Masukkan Mata Kuliah Baru: ";
+    					std::getline(std::cin, newData.mataKuliah);
+    					if (newData.mataKuliah.empty() || !database.isAlpha(newData.mataKuliah)) {
+        					std::cout << "Error: Mata Kuliah dosen baru tidak valid. Harus diisi huruf dan tidak boleh kosong.\n";
+    					}
+					} while (newData.mataKuliah.empty() || !database.isAlpha(newData.mataKuliah));
+
+                    // Validasi Hari Mengajar Baru
+                    do {
+                        std::cout << "Masukkan Hari Mengajar Baru (Senin, Selasa, Rabu, Kamis, Jumat): ";
+                        std::getline(std::cin, newData.hariMengajar);
+                    } while (!database.isValidHari(newData.hariMengajar));
+
+					//Validasi Umur Baru Dosen
+                   do {
+    					std::cout << "Masukkan Umur Baru Dosen: ";
+    					std::string umurStr;
+    					std::cin >> umurStr;
+    				try {
+        				newData.umur = std::stoi(umurStr);
+        				if (newData.umur < 0) {
+            				throw std::out_of_range("umur tidak boleh negatif");
+        			}
+    			} catch (const std::invalid_argument& e) {
+        			std::cout << "Error: Input tidak valid. Masukkan angka.\n";
+        			std::cin.clear();
+        			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        			newData.umur = -1;
+    			} catch (const std::out_of_range& e) {
+        			std::cout << "Error: " << e.what() << "\n";
+        			newData.umur = -1;
+	    		}
+			} while (newData.umur < 0);
