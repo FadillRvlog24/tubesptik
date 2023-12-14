@@ -264,3 +264,37 @@ int main() {
                     std::transform(dosen.hariMengajar.begin(), dosen.hariMengajar.end(), dosen.hariMengajar.begin(), ::toupper);
                                         
                 } while (!database.isValidHari(dosen.hariMengajar));
+                
+                // Validasi Umur
+                do {
+                    std::cout << "Masukkan Umur Dosen: ";
+                    std::string umurStr;
+                    std::cin>> umurStr;
+                    
+                    try{
+                    	//mengonversi string ke integer
+                    	dosen.umur = std::stoi (umurStr);
+                    	
+                    	if (dosen.umur < 0){
+                    		throw std::out_of_range("umur tidak boleh negatif");
+						}
+					} catch (const std::invalid_argument& e){
+						std::cout << "Error: input tidak valid. Masukkan Angka.\n";
+						std::cin.clear(); //membersihkan status error
+						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //membersihkan buffer input
+						dosen.umur = -1; //nilai negatif untuk mengulangi loop
+					} catch(const std::out_of_range& e) {
+						std::cout <<"Error: " <<e.what() << "\n";
+						dosen.umur = -1; //Nilai negatif untuk mengulangi loop
+					}
+                } while (dosen.umur < 0);
+
+                // Menambahkan data dosen baru ke dalam database
+                database.tambahDataDosen(dosen);
+                std::cout << "Data dosen berhasil ditambahkan.\n";
+                break;
+            }
+            case '2':
+                // Menampilkan semua data dosen
+                database.lihatDataDosen();
+                break;
