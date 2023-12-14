@@ -179,3 +179,88 @@ int main() {
         std::cout << "5. Keluar\n";
         std::cout << "Masukkan Pilihan : ";
         std::cin >> pilihan;
+        
+        // Memproses pilihan menu
+        switch (pilihan) {
+            case '1': {
+                // Input data dosen baru
+                Dosen dosen;
+                std::cin.ignore(); // membersihkan newline dari buffer
+
+                // Validasi Nama
+                do {
+                    std::cout << "Masukkan Nama Dosen: ";
+                    std::getline(std::cin, dosen.nama);
+                    
+                    if (dosen.nama.empty()){
+                    	std::cout << "Error: Nama dosen tidak boleh kosong. \n";
+                    	continue; //melanjutkan loop tanpa menambah data dosen
+					}
+					if (!database.isAlpha(dosen.nama)){
+						std::cout << "Error: Nama dosen hanya berisi huruf.\n";
+						continue; //Melanjutkan loop tanpa menambah data dosen
+					}
+                } while (dosen.nama.empty() || !database.isAlpha(dosen.nama));
+
+                // Validasi NIP
+                do {
+                    std::cout << "Masukkan NIP Dosen: ";
+                    std::getline(std::cin, dosen.nip);
+                    
+                     if (dosen.nip.empty()){
+                    	std::cout << "Error: Nip dosen tidak boleh kosong. \n";
+                    	continue; //melanjutkan loop tanpa menambah data dosen
+					}
+					if (!database.isNumeric(dosen.nip)){
+						std::cout << "Error: Nip dosen hanya berisi angka.\n";
+						continue; //Melanjutkan loop tanpa menambah data dosen
+					}
+                } while (dosen.nip.empty() || !database.isNumeric(dosen.nip));
+
+                // Validasi Alamat
+                std::cout << "Masukkan Alamat Dosen: ";
+                std::getline(std::cin, dosen.alamat);
+
+                // Validasi Email
+                std::cout << "Masukkan Email Dosen: ";
+                std::getline(std::cin, dosen.email);
+
+                // Validasi Nomor Telepon
+                do {
+                    std::cout << "Masukkan Nomor Telepon Dosen: ";
+                    std::getline(std::cin, dosen.nomorTelepon);
+                    
+                    if (dosen.nomorTelepon.empty()){
+                    	std::cout << "Error: Nomor Telepon dosen tidak boleh kosong. \n";
+                    	continue; //melanjutkan loop tanpa menambah data dosen
+					}
+					if (!database.isNumeric(dosen.nomorTelepon)){
+						std::cout << "Error: Nomor Telepon dosen hanya berisi angka.\n";
+						continue; //Melanjutkan loop tanpa menambah data dosen
+					}
+                } while (dosen.nomorTelepon.empty() || !database.isNumeric(dosen.nomorTelepon) || dosen.nomorTelepon.length() > 13);
+
+                // Validasi Mata Kuliah
+                do {
+                    std::cout << "Masukkan Mata Kuliah: ";
+                    std::getline(std::cin, dosen.mataKuliah);
+                    
+                    if (dosen.mataKuliah.empty()){
+                    	std::cout << "Error: Mata Kuliah dosen tidak boleh kosong. \n";
+                    	continue; //melanjutkan loop tanpa menambah data dosen
+					}
+					if (!database.isAlpha(dosen.mataKuliah)){
+						std::cout << "Error: Mata Kuliah dosen hanya berisi huruf.\n";
+						continue; //Melanjutkan loop tanpa menambah data dosen
+					}
+                } while (dosen.mataKuliah.empty() || !database.isAlpha(dosen.mataKuliah));
+
+                // Validasi Hari Mengajar
+                do {
+                    std::cout << "Masukkan Hari Mengajar (Senin, Selasa, Rabu, Kamis, Jumat): ";
+                    std::getline(std::cin, dosen.hariMengajar);
+                    
+                    //Ubah input menjadi huruf besar
+                    std::transform(dosen.hariMengajar.begin(), dosen.hariMengajar.end(), dosen.hariMengajar.begin(), ::toupper);
+                                        
+                } while (!database.isValidHari(dosen.hariMengajar));
