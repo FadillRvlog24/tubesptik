@@ -378,3 +378,35 @@ int main() {
         			newData.umur = -1;
 	    		}
 			} while (newData.umur < 0);
+			
+			     // Mengupdate data dosen berdasarkan nama
+                    database.updateDataDosen(namaDosen, newData);
+                } else {
+                    std::cout << "Dosen dengan nama '" << namaDosen << "' tidak ditemukan. Update dibatalkan.\n";
+                }
+                break;
+            }
+            case '4': {
+                // Menghapus data dosen
+                std::string namaDosen;
+                std::cin.ignore();
+                std::cout << "Masukkan Nama Dosen yang akan dihapus: ";
+                std::getline(std::cin, namaDosen);
+
+                if (database.isDosenExist(namaDosen)) {
+                    database.hapusDataDosen(namaDosen);
+                } else {
+                    std::cout << "Dosen dengan nama '" << namaDosen << "' tidak ditemukan. Hapus dibatalkan.\n";
+                }
+                break;
+            }
+            case '5':
+                std::cout << "Program selesai.\n";
+                break;
+            default:
+                std::cout << "Pilihan tidak valid. Coba lagi.\n";
+        }
+    } while (pilihan != '5');
+
+    return 0;
+}
